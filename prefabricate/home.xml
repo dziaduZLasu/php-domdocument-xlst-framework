@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : home.xml
+    Created on : 3 styczeń 2012, 17:21
+    Author     : artur
+    Description:
+        Purpose of the document follows.
+-->
+
+<root>
+<link name="Dodaj wniosek" href="addapp"/>
+<link name="Przeglądaj wnioski" href="browseapp"/>
+</root>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="krs.xsl"?>
+<!DOCTYPE application [
+<!-- Document root -->
+<!ELEMENT application (section+)>
+	<!ATTLIST application doccode (0|1|2|3|4|5|6|7|8|9|10) #REQUIRED> <!-- doccode for auto categorization -->
+	
+<!-- Main Sections -->
+<!ELEMENT section (subsection*)>
+		<!ATTLIST section type (header|data) #REQUIRED >
+		<!ATTLIST section title CDATA #REQUIRED >
+		
+	<!-- Subsections -->
+	<!ELEMENT subsection (field*)>
+			<!ATTLIST subsection type CDATA #FIXED "container" >
+			<!ATTLIST subsection title CDATA #REQUIRED >
+
+	<!-- Field -->
+	<!ELEMENT field (#PCDATA|checkbox)*>
+			<!ATTLIST field type (string|checkbox|blank|integer) #REQUIRED >
+			<!ATTLIST field title CDATA #REQUIRED >
+			<!ATTLIST field default CDATA #IMPLIED >
+			<!ATTLIST field helper CDATA #IMPLIED >
+			<!ATTLIST field constraint CDATA #IMPLIED >
+                        <!ATTLIST field id CDATA #IMPLIED >
+			
+	<!-- Checkbox -->
+	<!ELEMENT checkbox (EMPTY)*>
+	<!ATTLIST checkbox title CDATA #REQUIRED >
+	<!ATTLIST checkbox selected (0|1) #REQUIRED >
+        ]>
+<application doccode="8">
+    <section type="header" title="Wniosek o wykreślenie podmiotu z KRS">
+        <subsection type="container" title="SĄD, DO KTÓREGO KIEROWANY JEST WNIOSEK">
+            <field id="nazwa-sadu" type="string" title="Nazwa sądu" default="Sąd Rejonowy"></field>
+        </subsection>
+        <subsection type="container" title="SIEDZIBA PODMIOTU, KTÓREGO DOTYCZY WPIS">
+            <field id="wojewodztwo" type="string" title="Województwo" default=""></field>
+            <field id="powiat" type="string" title="Powiat" default=""></field>
+            <field id="gmina" type="string" title="Gmina" default=""></field>
+            <field id="miejscowosc" type="string" title="Miejscowość" default=""></field>
+        </subsection>
+    </section>
+    <section type="data" title="Część A">
+        <subsection type="container" title="DANE PODMIOTU, KTÓREGO DOTYCZY WPIS">
+            <field id="numer-krs" type="integer" title="Numer KRS" default="" constraint="10|digits|exact"></field>
+            <field id="oznaczenie-formy-prawnej" type="string" title="Oznaczenie formy prawnej" default="" helper="Należy wpisać właściwą formę prawną podmiotu ujawnioną w Krajowym Rejestrze Sądowym."></field>
+            <field id="nazwa-firma-posmiotu" type="string" title="Nazwa / firma posmiotu" default=""></field>
+            <field id="numer-identyfikacyjny-regon" type="integer" title="Numer identyfikacyjny REGON" default="" constraint="9|digits|exact"></field>
+        </subsection>
+    </section>
+    <section type="data" title="Część B">
+        <subsection type="container" title="DANE WNIOSKODAWCY">
+            <field id="wykonawca" type="checkbox" title="Wykonawca" default="" constraint="required">
+                <checkbox title="Podmiot, którego dotyczy wpis" selected="0"></checkbox>
+                <checkbox title="Inny wnioskodawca" selected="0"></checkbox>
+            </field>
+            <field type="blank" title="" helper="">
+				Pola o numerach 11 i 12 należy wypełnić tylko wówczas, gdy w polu o numerze 10 zaznaczono “Inny wnioskodawca”. 
+				W pozostałych przypadkach pola te należy przekreślić.
+            </field>
+            <field id="nazwa-firma-lub-nazwa-organu-lub-nazwisko" type="string" title="Nazwa / firma lub nazwa organu lub nazwisko" default=""></field>
+        </subsection>
+        <subsection type="container" title="DANE ADRESATA KORESPONDENCJI">
+            <field type="blank" title="" helper="">
+				Oznaczenie adresata korespondencji
+            </field>
+            <field id="nazwa-firma-lub-nazwa-organu-lub-nazwisko2" type="string" title="Nazwa / firma lub nazwa organu, lub nazwisko" default=""></field>
+            <field id="imie" type="string" title="Imię" default=""></field>
+            <field type="blank" title="" helper="">
+				Adres do korespondencji
+            </field>
+            <field id="ulica" type="string" title="Ulica" default=""></field>
+            <field id="nr-domu" type="string" title="Nr domu" default=""></field>
+            <field id="nr-lokalu" type="string" title="Nr lokalu" default=""></field>
+            <field id="miejscowosc" type="string" title="Miejscowość" default=""></field>
+            <field id="kod-pocztowy" type="string" title="Kod pocztowy" default=""></field>
+            <field id="poczta" type="string" title="Poczta" default=""></field>
+            <field id="kraj" type="string" title="Kraj" default=""></field>
+        </subsection>
+    </section>
+</application>
